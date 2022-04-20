@@ -1,3 +1,3 @@
 # booksapp
 
-go to main branch for code
+go to master branch for code
