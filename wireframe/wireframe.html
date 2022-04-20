@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>React Google Book Search</title>
+
+		<!-- fonts  -->
+		<link href="https://fonts.googleapis.com/css?family=Raleway|Sintony&display=swap" rel="stylesheet"> 
+
+		<!-- seo -->
+		<meta name="description" content="DESCRIPTION" />
+
+		<!-- reset -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css"
+		/>
+
+		<!-- styles -->
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<style>
+		
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+html {
+color: white;
+}
+body, footer {
+font-family: 'Sintony', sans-serif;
+-webkit-font-smoothing: antialiased;
+font-size: 16px;
+font-weight: 300;
+text-align: center;
+}
+body {
+margin: 0;
+background: linear-gradient( to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) ), url(img/wall.png);
+background-attachment: scroll;
+}
+a {
+text-decoration: underline;
+color: inherit;
+transition: color 0.25s linear;
+}
+footer {
+padding: 20px;
+margin-top: 20px;
+text-shadow: 0 0 1px #555555;
+background: linear-gradient( to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2) ), url(img/dark_pattern.png);
+box-shadow: 0 0 10px #656565;
+border-top: 1px solid #656565;
+-webkit-font-smoothing: antialiased;
+}
+
+
+.error-message {
+color: red;
+}
+.hidden {
+display: none;
+}
+
+
+/* Photo by Lysander Yuen on Unsplash
+lysander-yuen-wk833OrQLJE-unsplash.jpg
+
+Photo by Ria Puskas on Unsplash
+ria-puskas-OobxlWxuLaA-unsplash.jpg
+*/
+
+
+header {
+background: linear-gradient( to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7) ), url(img/ria-puskas-OobxlWxuLaA-unsplash.jpg);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: 15% 0%;
+background-attachment: scroll;
+padding: 20px 0;
+box-shadow: 0 0 10px black;
+}
+/* Vertically center header content */
+@media only screen and (min-height: 450px) {
+	header {
+	height: 100vh;
+	}
+.header_content {
+position: relative;
+transform: translate(0px, -50%);
+top: 40%;
+}
+}
+
+main {
+ margin-top: 40px;
+}
+section {
+width: 100%;
+margin-top: 20px;
+ }
+
+img {
+ float: left;
+ padding-right: 10px;
+  width: auto;
+  height: 100%;
+  max-height: 20vh;
+}
+
+form {
+margin: 20px auto;
+padding: 0 20px;
+}
+legend {
+font-size: 48px;
+}
+.select-container {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+select {
+ width: 200px;
+ margin-right: 10px;
+}
+
+input {
+color: white;
+border: none;
+border-bottom: 3px solid ghostwhite;
+border-radius: 0px;
+padding: 10px;
+-webkit-font-smoothing: antialiased;
+font-size: 28px;
+background: none;
+width: 300px;
+margin: 20px 0;
+}
+input:focus {
+/* outline: 3px solid ghostwhite;
+*/
+}
+
+button {
+border: 3px solid ghostwhite;
+margin: 0 auto;
+padding: 8px 13px;
+color: ghostwhite;
+font-size: 28px;
+font-weight: 400;
+letter-spacing: 2px;
+background: rgba(255, 255, 255, 0.25);
+transition: color 0.25s linear;
+text-shadow: 0 0 3px #555555;
+border-radius: 0;
+width: 250px;
+}
+
+button:hover, button:active, button:focus {
+color: #533D6D;
+background-color: #fff;
+}
+
+@media all and (min-width: 768px)
+/* Tablet & iPad Pro & above */
+{
+	input {
+	width: 400px;
+	}
+}
+
+/* iPad */
+@media only screen and (max-width: 768px) {
+	input {
+	width: 100%;
+	margin-bottom: 20px;
+	}
+	button {
+	margin-left: 3px;
+	margin-bottom: 20px;
+	}
+}
+
+
+h1, h2, h3, h4, legend {
+font-family: 'Raleway', sans-serif;
+}
+h1 {
+font-size: 48px;
+}
+h2 {
+font-size: 38px
+}
+h3 {
+font-size: 26px;
+margin-top: 50px;
+}
+h3 {
+font-size: 18px;
+}
+
+
+#results {
+	color: #000;
+}
+ul {
+ list-style: none;
+ }
+li {
+
+}
+
+.item {
+ border-bottom: 1px solid silver;
+ padding: 20px;
+ margin: 20px;
+}
+
+.item-header {
+ display: flex;
+ justify-content: space-between;
+ text-align: left;
+}
+
+.item-description {
+ display: flex;
+ margin-top: 10px;
+ text-align: left;
+}
+
+.item-subhead {
+}
+
+.item-buttons {
+}
+
+/* ************************************ dynamic back to top button ************************************ */
+.back-to-top {
+position: fixed;
+bottom: 0;
+right: 10px;
+text-decoration: none;
+color: #000;
+background: #ccc;
+/* The Fallback for IE */
+background-color: rgba(235, 235, 235, 0.80);
+border-radius: 4px 4px 0 0;
+font-size: .750em;
+padding: 1em;
+display: none;
+}
+.back-to-top:hover {
+background: #fff;
+}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="header_content">
+				<h1>Google Book Search</h1>
+
+				<form id="js-form">
+					<legend></legend>
+
+					<label for="search-term">
+						<input
+							type="text"
+							name="search-term"
+							id="js-search-term"
+							required
+							aria-required="true"
+							placeholder=""
+						/>
+					</label>
+					<button id="js-search">search</button>
+
+					<div class="select-container">
+						<label for="print-type">Print Type <select id="print-type">
+								<option value="1">All</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</label>  <label for="book-type">Book Type <select id="book-type">
+								<option value="1">All</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</label>
+					</div>
+				</form>
+
+				<p id="js-error-message" class="error-message"></p>
+			</div>
+		</header>
+
+		<main>
+			<section id="results">
+				<h2>Search Results</h2>
+
+				<ul id="results-list" class="item-list">
+					<li class="item">
+						<div class="item-header">
+							<div class="item-subhead">
+								Title
+								<br />Subtitle
+								<br />Author
+							</div>
+
+							<div class="item-buttons">
+								<button>view</button>
+							</div>
+						</div>
+
+						<div class="item-description">
+							<!--
+			<img style="padding-right: 10px;" src="http://books.google.com/books/content?id=ycTADgAAQBAJ&amp;printsec=frontcover&amp;img=1&amp;zoom=5&amp;edge=curl&amp;source=gbs_api" alt="new" align="left">
+			-->
+
+							<img src="https://via.placeholder.com/150" alt="imageName" />
+
+							Nulla magna ligula, consequat non erat id, bibendum pellentesque
+							felis. Fusce maximus nibh eget congue rutrum. Cras rhoncus aliquam
+							sem, id commodo enim aliquam et. Pellentesque sem est, finibus ut
+							ultricies a, consequat et massa. Etiam et velit non leo
+							scelerisque pharetra varius et tortor. Suspendisse pellentesque
+							feugiat luctus. Maecenas aliquam neque purus, non laoreet dolor
+							faucibus sed. Vestibulum varius id lacus ut pharetra. Phasellus ac
+							nisl sodales metus viverra tincidunt et et odio. Suspendisse
+							pellentesque, mauris non condimentum lacinia, nisl tortor accumsan
+							ligula, sed fringilla quam justo ac odio. Vestibulum tempus
+							posuere tellus, et fringilla eros consequat et.
+						</div>
+					</li>
+					
+					
+					<li class="item">
+						<div class="item-header">
+							<div class="item-subhead">
+								Title
+								<br />Subtitle
+								<br />Author
+							</div>
+
+							<div class="item-buttons">
+								<button>view</button>
+							</div>
+						</div>
+
+						<div class="item-description">
+							<!--
+			<img style="padding-right: 10px;" src="http://books.google.com/books/content?id=ycTADgAAQBAJ&amp;printsec=frontcover&amp;img=1&amp;zoom=5&amp;edge=curl&amp;source=gbs_api" alt="new" align="left">
+			-->
+
+							<img src="https://via.placeholder.com/150" alt="imageName" />
+
+							Nulla magna ligula, consequat non erat id, bibendum pellentesque
+							felis. Fusce maximus nibh eget congue rutrum. Cras rhoncus aliquam
+							sem, id commodo enim aliquam et. Pellentesque sem est, finibus ut
+							ultricies a, consequat et massa. Etiam et velit non leo
+							scelerisque pharetra varius et tortor. Suspendisse pellentesque
+							feugiat luctus. Maecenas aliquam neque purus, non laoreet dolor
+							faucibus sed. Vestibulum varius id lacus ut pharetra. Phasellus ac
+							nisl sodales metus viverra tincidunt et et odio. Suspendisse
+							pellentesque, mauris non condimentum lacinia, nisl tortor accumsan
+							ligula, sed fringilla quam justo ac odio. Vestibulum tempus
+							posuere tellus, et fringilla eros consequat et.
+						</div>
+					</li>
+
+					
+				</ul>
+			</section>
+		</main>
+
+		<footer>
+			<a href="#" class="back-to-top"><img src="https://img.icons8.com/color/48/000000/circled-chevron-up.png"/></a>
+			<span><a
+					href="https://icons8.com/icon/7695/search-filled"
+					title="Search icon at Icons8.com"
+					target="_blank"
+					rel="noopener">Icons by Icons8</a>
+				• Photo by Ria Puskas on Unsplash • Built by
+				<a href="http://www.asktami.com" target="_blank" rel="noopener">Tami Williams</a></span>
+		</footer>
+	</body>
+</html>
