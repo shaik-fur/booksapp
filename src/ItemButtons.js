@@ -11,7 +11,7 @@ export class ItemButtons extends React.Component {
 				name : name,
 				title : title
 			}
-			axios.post('http://localhost:3001/', newBook);
+			axios.post('https://master.d1wocwlzyirb4e.amplifyapp.com:3001/', newBook);
 			//console.log("success");
 			window.open(this.props.link, "_blank");
 			//<a href={this.props.link} target="_blank" rel="noopener noreferrer"></a>
